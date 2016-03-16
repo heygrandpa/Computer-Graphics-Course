@@ -11,3 +11,4 @@ IDE: CLion using CMake
 Lecture                 | Description   
 ------------------------|-------------------
 c1. Setting Environment | ColorChanging
+c2. Drawing Polygon     | PolygonRotateAndScale
