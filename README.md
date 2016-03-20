@@ -12,3 +12,4 @@ Lecture                 | Description
 ------------------------|-------------------
 c1. Setting Environment | ColorChanging
 c2. Drawing Polygon     | PolygonRotateAndScale
+c3. Animation           | Animation with a 有点方的 character 
