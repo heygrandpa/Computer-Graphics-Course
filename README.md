@@ -8,8 +8,9 @@ IDE: CLion using CMake
 
 ## Table of Contents
 
-Lecture                 | Description   
-------------------------|-------------------
-c1. Setting Environment | ColorChanging
-c2. Drawing Polygon     | PolygonRotateAndScale
-c3. Animation           | Animation with a 有点方的 character 
+Lecture                        | Description   
+-------------------------------|-------------------
+c1. Setting Environment        | ColorChanging
+c2. Drawing Polygon            | PolygonRotateAndScale
+c3. Animation                  | Animation with a 有点方的 character 
+c4. Shape Generation Algorithm | Mid-point and scanline algorithm 
