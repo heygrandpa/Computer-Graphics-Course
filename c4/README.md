@@ -1,6 +1,7 @@
-# Ellipse
+# Shape Generation Algorithm 
 
-Draw Ellipse Using Mid-Point Algorithm
+Draw Ellipse Using Mid-Point Algorithm   
+Draw Polygon Using Scanline Algorithm
 
 ## Required
 1. Python 3.5
