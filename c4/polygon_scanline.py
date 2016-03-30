@@ -64,7 +64,7 @@ class Polygon:
 class PolygonApp:
 
     _WIDTH = 200
-    _HEIGHT = 130
+    _HEIGHT = 200
 
     def __init__(self):
         self.img = Image.new('RGB', (PolygonApp._WIDTH, PolygonApp._HEIGHT), 'black')
@@ -73,7 +73,7 @@ class PolygonApp:
         print("请输入点数：")
         n = int(input())
         points = []
-        print("一行一个点，空格隔开x和y")
+        print("一行一个点，空格隔开x和y(画布大小200*200)")
         for i in range(0, n):
             x, y = input().split()
             x, y = int(x), int(y)
