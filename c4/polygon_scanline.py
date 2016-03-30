@@ -46,14 +46,16 @@ class Polygon:
             if y in self.edge_table.keys():
                 ael += self.edge_table[y]
                 ael.sort(key=lambda e: e['x'])
-            for i in range(0, len(ael) - 1, 2):
-                sx = int(ael[i]['x'])
-                dx = int(ael[i + 1]['x'])
-                for x in range(sx, dx):
-                    self.pixels[x, y] = (255, 0, 0)
             for e in list(ael):
                 if e['ymax'] == y:
                     ael.remove(e)
+            for i in range(0, len(ael) - 1, 2):
+                sx = int(ael[i]['x'])
+                dx = int(ael[i + 1]['x'])
+                if sx > dx:
+                    sx, dx = dx, sx
+                for x in range(sx, dx):
+                    self.pixels[x, y] = (255, 0, 0)
             y += 1
             for e in ael:
                 e['x'] += e['deltax']
