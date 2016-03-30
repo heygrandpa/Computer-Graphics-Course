@@ -69,12 +69,17 @@ class PolygonApp:
     def __init__(self):
         self.img = Image.new('RGB', (PolygonApp._WIDTH, PolygonApp._HEIGHT), 'black')
         self.pixels = self.img.load()
-        self.polygon = Polygon([
-            (10, 10),
-            (10, 100),
-            (200, 30),
-            (100, 10),
-        ], self.pixels)
+
+        print("请输入点数：")
+        n = int(input())
+        points = []
+        print("一行一个点，空格隔开x和y")
+        for i in range(0, n):
+            x, y = input().split()
+            x, y = int(x), int(y)
+            points.append((x, y))
+
+        self.polygon = Polygon(points, self.pixels)
         self.polygon.draw()
         self.img.show()
 
