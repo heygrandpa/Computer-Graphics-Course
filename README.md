@@ -10,7 +10,8 @@ IDE: CLion using CMake
 
 Lecture                        | Description   
 -------------------------------|-------------------
-c1. Setting Environment        | ColorChanging
-c2. Drawing Polygon            | PolygonRotateAndScale
+c1. Setting Environment        | Color Changing
+c2. Drawing Polygon            | Polygon Rotating and Scaling
 c3. Animation                  | Animation with a 有点方的 character 
 c4. Shape Generation Algorithm | Mid-point and scanline algorithm 
+c5. Solar System               | Solar system emulation with moon

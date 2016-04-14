@@ -1,5 +1,7 @@
 # Solar System
 
+Unfinished
+
 ## Required
 
 1. OpenGL 3.3+ (GLSL 3.3+)
