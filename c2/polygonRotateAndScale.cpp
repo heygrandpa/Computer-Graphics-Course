@@ -13,7 +13,7 @@ const int EDGE_N = 3; // Polygon's Edge count
 const GLfloat EDGE_LENGTH = .5f; // Length of edges
 const GLfloat PI = 3.1415926f; // Pi
 
-GLfloat vertices[EDGE_N][2]; // Position of vertices
+GLfloat vertices[EDGE_N][2]; // Position of verticesSun
 bool isFill = true; // Fill or Stroke mode
 GLfloat scaleSpeed = 1.0f;
 GLfloat rotateSpeed = 0.0f;
@@ -32,7 +32,7 @@ void outputTip() {
     std::cout << "Move cursor: Move the rotation center point" << std::endl;
 }
 
-// Calculate vertices' position of the polygon
+// Calculate verticesSun' position of the polygon
 void initPolygon() {
     for (int i = 0; i < EDGE_N; ++i) {
         vertices[i][0] = EDGE_LENGTH * (GLfloat)sin(2 * PI / EDGE_N * i);

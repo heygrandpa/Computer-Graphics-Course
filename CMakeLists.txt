@@ -9,6 +9,7 @@ set(ALL_LIBS
         ${OPENGL_LIBRARY}
         glfw3
         GLEW
+        SOIL
 )
 link_libraries(${ALL_LIBS})
 
@@ -22,7 +23,8 @@ add_definitions(
 )
 
 # Include Current Directory
-include_directories(.)
+include_directories(. /usr/local/include)
+link_directories(/usr/local/lib)
 
 # C++ 11
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 ")
@@ -35,6 +37,8 @@ set(SHADER_HELPER_SOURCES
 
 # Shader GLSL Directory
 set(SHADER_DIR shaders)
+# Resource Directory
+set(RESOURCE_DIR resources)
 
 # Copy GLSLs to Build Dir
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${SHADER_DIR})
@@ -44,6 +48,16 @@ foreach(glsl ${SHADER_SOURCES})
     add_custom_command(TARGET COPY_GLSL PRE_BUILD
             COMMAND ${CMAKE_COMMAND} -E
             copy ${glsl} ${CMAKE_CURRENT_BINARY_DIR}/${SHADER_DIR}/)
+endforeach()
+
+# Copy Resources to Build Dir
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE_DIR})
+file(GLOB RESOURCES ${CMAKE_SOURCE_DIR}/${RESOURCE_DIR}/*)
+add_custom_target(COPY_RESOURCES)
+foreach(res ${RESOURCES})
+    add_custom_command(TARGET COPY_RESOURCES PRE_BUILD
+            COMMAND ${CMAKE_COMMAND} -E
+            copy ${res} ${CMAKE_CURRENT_BINARY_DIR}/${RESOURCE_DIR}/)
 endforeach()
 
 # c1
@@ -62,3 +76,10 @@ set(SOURCE_FILES_C3
 add_executable(c3 ${SOURCE_FILES_C3})
 add_dependencies(c3 COPY_GLSL) # GLSL needed
 
+# c5
+set(SOURCE_FILES_C5
+        c5/solarSystem.cpp
+        ${SHADER_HELPER_SOURCES})
+add_executable(c5 ${SOURCE_FILES_C5})
+add_dependencies(c5 COPY_GLSL) # GLSL needed
+add_dependencies(c5 COPY_RESOURCES) # GLSL needed
