@@ -1,6 +1,6 @@
 # Solar System
 
-Unfinished
+Finished 8 planets.
 
 ## Required
 
@@ -13,6 +13,11 @@ Unfinished
 2. Light Shading
 3. Texture
 
+## TODO
+Moon
+
 ## Screenshot
 
 ![1.gif](http://7xnei5.com1.z0.glb.clouddn.com/opengl6.gif)
+![2.gif](http://7xnei5.com1.z0.glb.clouddn.com/opengl7.gif)
+
