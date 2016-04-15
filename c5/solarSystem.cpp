@@ -37,7 +37,7 @@ private:
     GLuint VBO_Sphere, VAO_Sphere, EBO_Sphere;
     GLulong sphereIndexSize;
 
-    glm::vec3 cameraPos   = glm::vec3(0.0f, 4.0f, -40.0f);
+    glm::vec3 cameraPos   = glm::vec3(0.0f, 4.0f, -30.0f);
     glm::vec3 cameraFront = glm::vec3(0.0f, -0.2f,  1.0f);
     glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
 
@@ -57,6 +57,10 @@ private:
             app.cameraPos += cameraSpeed * app.cameraFront;
         if(key == GLFW_KEY_S)
             app.cameraPos -= cameraSpeed * app.cameraFront;
+        if(key == GLFW_KEY_D)
+            app.cameraFront += glm::normalize(glm::cross(app.cameraFront, app.cameraUp)) * cameraSpeed;
+        if(key == GLFW_KEY_A)
+            app.cameraFront -= glm::normalize(glm::cross(app.cameraFront, app.cameraUp)) * cameraSpeed;
         if(key == GLFW_KEY_LEFT)
             app.cameraPos -= glm::normalize(glm::cross(app.cameraFront, app.cameraUp)) * cameraSpeed;
         if(key == GLFW_KEY_RIGHT)
@@ -223,11 +227,43 @@ private:
         // Model Matrix
         GLint modelLoc = glGetUniformLocation(shaderProgram, "model");
         glm::mat4 model(1.0f);
-        model = glm::scale(model, glm::vec3(10, 10, 10));
+        model = glm::scale(model, glm::vec3(5, 5, 5));
 
         // Draw
         drawSphere(model, false);
    }
+
+    void drawMoon(GLfloat earthRadius, GLfloat earthTimeFactor, GLfloat earthScaleFactor) {
+        // Texture
+        setTexture("resources/Moon.tga");
+
+        // Model Matrix
+        GLint modelLoc = glGetUniformLocation(shaderProgram, "model");
+
+        // Earth
+        glm::mat4 earthModel(1.0f);
+        earthRadius += 10;
+        earthTimeFactor /= 100;
+        earthModel = glm::translate(earthModel, glm::vec3(earthRadius * cos(glfwGetTime() / earthTimeFactor),
+                                                0,
+                                                earthRadius * sin(glfwGetTime() / earthTimeFactor)
+        ));
+        earthModel = glm::rotate(earthModel, (GLfloat) glfwGetTime() , glm::vec3(1, 1, 0));
+        earthModel = glm::scale(earthModel, glm::vec3(earthScaleFactor, earthScaleFactor, earthScaleFactor));
+
+        // Moon
+        glm::mat4 model(1.0f);
+        model = glm::translate(model, glm::vec3(1.2f * cos(glfwGetTime()),
+                                                1.2f * cos(glfwGetTime()),
+                                                1.2f * sin(glfwGetTime())
+        ));
+        model = glm::rotate(model, (GLfloat) glfwGetTime() * 3 , glm::vec3(1, 1, 0));
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+
+        // Draw
+        model = earthModel * model;
+        drawSphere(model , true);
+    }
 
    void drawOthers(const char *name, GLfloat radius, GLfloat timeFactor, GLfloat scaleFactor) {
 
@@ -240,14 +276,14 @@ private:
 
        // Model Matrix
        glm::mat4 model(1.0f);
-       radius += 20;
-       timeFactor /= 300;
-       model = glm::scale(model, glm::vec3(scaleFactor, scaleFactor, scaleFactor));
+       radius += 10;
+       timeFactor /= 100;
        model = glm::translate(model, glm::vec3(radius * cos(glfwGetTime() / timeFactor),
                                                0,
                                                radius * sin(glfwGetTime() / timeFactor)
        ));
        model = glm::rotate(model, (GLfloat) glfwGetTime() , glm::vec3(1, 1, 0));
+       model = glm::scale(model, glm::vec3(scaleFactor, scaleFactor, scaleFactor));
 
        // Draw
        drawSphere(model);
@@ -280,13 +316,14 @@ private:
         drawSun();
 
         drawOthers("Mercury", 1.0f, 80, 0.5f);
-        drawOthers("Venus", 1.1f, 100, 0.95f);
-        drawOthers("Earth", 1.2f, 120, 1.0f);
-        drawOthers("Mars", 1.4f, 160, 1.0f);
-        drawOthers("Jupiter", 1.6f, 200, 2.0f);
-        drawOthers("Saturn", 2.0f, 260, 1.4f);
-        drawOthers("Uranus", 2.3f, 300, 1.2f);
-        drawOthers("Neptune", 2.5f, 400, 1.2f);
+        drawOthers("Venus", 1.6f, 100, 0.95f);
+        drawOthers("Earth", 2.6f, 120, 1.0f);
+        drawMoon(2.6f, 120, 1.0f);
+        drawOthers("Mars", 3.7f, 160, 1.0f);
+        drawOthers("Jupiter", 4.8f, 200, 2.0f);
+        drawOthers("Saturn", 6.8f, 260, 1.4f);
+        drawOthers("Uranus", 8.0f, 300, 1.2f);
+        drawOthers("Neptune", 9.5f, 400, 1.2f);
 
         // Reset
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -304,7 +341,7 @@ public:
 
         glfwSetKeyCallback(window, key_callback);
 
-        sphereIndexSize = createSphere(.8, 30, VAO_Sphere, VBO_Sphere, EBO_Sphere);
+        sphereIndexSize = createSphere(.8, 50, VAO_Sphere, VBO_Sphere, EBO_Sphere);
 
         while (!glfwWindowShouldClose(window)) {
             glfwPollEvents();

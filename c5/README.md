@@ -1,6 +1,6 @@
 # Solar System
 
-Finished 8 planets.
+Finished 8 planets with Moon.
 
 ## Required
 
@@ -12,9 +12,6 @@ Finished 8 planets.
 1. Earth's Revolution and Rotation
 2. Light Shading
 3. Texture
-
-## TODO
-Moon
 
 ## Screenshot
 
