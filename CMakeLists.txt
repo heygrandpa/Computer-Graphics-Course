@@ -83,3 +83,13 @@ set(SOURCE_FILES_C5
 add_executable(c5 ${SOURCE_FILES_C5})
 add_dependencies(c5 COPY_GLSL) # GLSL needed
 add_dependencies(c5 COPY_RESOURCES) # GLSL needed
+
+# c6
+set(SOURCE_FILES_C6
+        c6/objviewer.cpp
+        c6/HalfEdge.cpp
+        ${SHADER_HELPER_SOURCES})
+add_executable(c6 ${SOURCE_FILES_C6})
+add_dependencies(c6 COPY_GLSL) # GLSL needed
+add_dependencies(c6 COPY_RESOURCES) # GLSL needed
+
