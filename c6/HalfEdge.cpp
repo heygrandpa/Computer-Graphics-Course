@@ -18,7 +18,6 @@ Mesh::Mesh(const char *fileName) {
     int i = 0;
     while (fscanf(file, "%s", buf) != EOF) {
         ++i;
-        // std::cout << buf<<i << std::endl;
         switch (buf[0]) {
             case '#':
                 // comment
@@ -67,11 +66,9 @@ void Mesh::calcVertexNormal() {
         glm::vec3 avgNorm(0.0f);
         do {
             glm::vec3 faceNorm = nextHe->face->getNorm();
-            //std::cout << faceNorm.x << " " << faceNorm.y << " " << faceNorm.z << std::endl;
             avgNorm += faceNorm;
             nextHe = nextHe->next->twin;
         } while(nextHe && nextHe != he);
-        //std::cout << "----" << std::endl;
         v->norm = glm::normalize(avgNorm);
     }
 }
@@ -99,7 +96,7 @@ Face::Face(Mesh *m, Vert *a, Vert *b, Vert *c) {
     glm::vec3 v1(a->x, a->y, a->z);
     glm::vec3 v2(b->x, b->y, b->z);
     glm::vec3 v3(c->x, c->y, c->z);
-    norm = glm::normalize((v2 - v1) * (v3 - v1));
+    norm = glm::normalize(glm::cross(v2 - v1, v3 - v1));
 
     he0->setVert(a, b);
     he0->face = this;

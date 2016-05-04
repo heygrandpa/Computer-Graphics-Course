@@ -44,6 +44,8 @@ private:
     bool keyA = false;
     bool keyS = false;
     bool keyD = false;
+    bool keyZ = false;
+    bool keyX = false;
     bool keyUp = false;
     bool keyLeft = false;
     bool keyRight = false;
@@ -65,6 +67,10 @@ private:
             app.keyW = set;
         if(key == GLFW_KEY_S)
             app.keyS = set;
+        if(key == GLFW_KEY_Z)
+            app.keyZ = set;
+        if(key == GLFW_KEY_X)
+            app.keyX = set;
         if(key == GLFW_KEY_D)
             app.keyD = set;
         if(key == GLFW_KEY_A)
@@ -143,7 +149,7 @@ private:
         glBindVertexArray(VAO);
 
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex) * 2, (GLvoid *) 0);
         glEnableVertexAttribArray(0);
@@ -166,7 +172,6 @@ private:
         glUniform1i(lightLoc, light);
 
         // Draw
-        //glDrawElements(GL_TRIANGLES, (GLsizei) (indexSize * 3), GL_UNSIGNED_INT, 0);
         glDrawArrays(GL_TRIANGLES, 0, (GLsizei) vertices.size());
     }
 
@@ -174,8 +179,14 @@ private:
         // Model Matrix
         GLint modelLoc = glGetUniformLocation(shaderProgram, "model");
         glm::mat4 model(1.0f);
+        static float r = 0;
+        if (keyD)
+            r += cameraSpeed;
+        if (keyA)
+            r -= cameraSpeed;
+        model = glm::rotate(model, r, glm::vec3(0, 1, 0));
         //model = glm::translate(model, glm::vec3(0.3, 0, 0));
-        model = glm::scale(model, glm::vec3(4,4,4));
+        model = glm::scale(model, glm::vec3(8,8,8));
 
         // Draw
         drawModel(model);
@@ -188,10 +199,10 @@ private:
             cameraPos += cameraSpeed * cameraFront;
         if (keyS)
             cameraPos -= cameraSpeed * cameraFront;
-        if (keyD)
-            cameraFront += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-        if (keyA)
+        if (keyZ)
             cameraFront -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        if (keyX)
+            cameraFront += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
         if (keyLeft)
             cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
         if (keyRight)
@@ -219,7 +230,7 @@ private:
         // Vertex Array
         glBindVertexArray(VAO);
 
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         draw();
 
         // Reset

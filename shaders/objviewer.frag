@@ -16,11 +16,11 @@ void main()
 
         float ambientStrength = 0.15f; // Ambient Strength
 
-        vec3 lightPos = vec3(0.0f, 0.0f, -2.0f); // Light Position
+        vec3 lightPos = vec3(0.0f, 5.0f, -5.0f); // Light Position
         vec3 lightColor = vec3(1.0f, 1.0f, 1.0f); // Light Color
 
-        float shininess = 10.0f; // Shininess
-        float specularStrength = 0.5f; // Specular Strength
+        float shininess = 20.0f; // Shininess
+        float specularStrength = 0.01f; // Specular Strength
 
         // Ambient
         vec3 ambient = ambientStrength * vec3(1.0f);
