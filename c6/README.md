@@ -21,4 +21,4 @@ NOT FINISHED YET...
 
 ## Screenshot
 
-![DEMO](http://7xnei5.com1.z0.glb.clouddn.com/opengl9.gif)
+[View in new page](http://7xnei5.com1.z0.glb.clouddn.com/opengl9.gif)
