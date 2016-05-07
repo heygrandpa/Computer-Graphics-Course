@@ -31,7 +31,7 @@ private:
 
     GLFWwindow *window;
     GLuint shaderProgram;
-    GLuint VBO, VAO;
+    GLuint VBO = 0, VAO = 0;
 
     std::vector<Vertex> vertices;
 
@@ -83,6 +83,12 @@ private:
             app.keyUp = set;
         if(key == GLFW_KEY_DOWN)
             app.keyDown = set;
+        if (key == GLFW_KEY_ENTER && action == GLFW_RELEASE) {
+            std::cout << "It may take a few minutes, please wait patiently..." << std::endl;
+            app.mesh->butterfly();
+            app.createModel(app.mesh, app.VAO, app.VBO);
+            std::cout << "Finished butterflying!" << std::endl;
+        }
     }
 
     Vertex makeVertex(GLfloat x, GLfloat y, GLfloat z) {
@@ -105,7 +111,7 @@ private:
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
         glfwWindowHint(GLFW_SAMPLES, 4);
 
-        window = glfwCreateWindow(WIDTH, HEIGHT, "XHX OpenGL 5 - Obj Viewer", nullptr, nullptr);
+        window = glfwCreateWindow(WIDTH, HEIGHT, "XHX OpenGL 5 - OBJ Viewer with Butterfly subdivision algorithm", nullptr, nullptr);
         appMap[window] = this;
         glfwMakeContextCurrent(window);
 
@@ -122,6 +128,10 @@ private:
     }
 
     void createModel(Mesh *m, GLuint &VAO, GLuint &VBO) {
+        if (VAO && VBO) {
+            glDeleteVertexArrays(1, &VAO);
+            glDeleteBuffers(1, &VBO);
+        }
         auto meshVertices = m->getVertices();
         auto meshFaces = m->getFaces();
 
@@ -230,7 +240,7 @@ private:
         // Vertex Array
         glBindVertexArray(VAO);
 
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         draw();
 
         // Reset
@@ -240,7 +250,7 @@ private:
 
 public:
     ObjViewerApp() : window(NULL) {
-        mesh = new Mesh("resources/bunny.obj");
+        mesh = new Mesh("resources/tetra.obj");
     }
 
     void run() {

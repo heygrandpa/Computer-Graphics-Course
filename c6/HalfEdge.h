@@ -8,6 +8,7 @@
 #include <map>
 #include <glm/glm.hpp>
 
+
 class Edge;
 class Vert;
 class Face;
@@ -38,9 +39,10 @@ class Face {
     HalfEdge *halfEdge = nullptr;
     glm::vec3 norm;
 
-    void createEdge(HalfEdge *he);
+    void createEdge(HalfEdge *he, bool copy = false);
+    void calcNormal();
 public:
-    Face(Mesh *m, Vert *a, Vert *b, Vert *c);
+    Face(Mesh *m, Vert *a, Vert *b, Vert *c, bool copy = false);
     glm::vec3 getNorm() const {return norm;}
     HalfEdge *getHalfEdge() const {return halfEdge;}
 };
@@ -70,12 +72,21 @@ class Mesh {
     std::vector<HalfEdge*> halfEdges;
     std::vector<Edge*> edges;
     std::vector<Face*> faces;
+    std::vector<HalfEdge*> _halfEdges;
+    std::vector<Edge*> _edges;
+    std::vector<Face*> _faces;
     std::map<std::pair<Vert*, Vert*>, Edge*> edgeMap;
+    std::map<Edge*, Vert*> edgeDivide;
 
     void calcVertexNormal();
+    Vert* subdivideEdge(Edge *, float w = 0);
+    void subdivideEdgeWithExtraordinaryVertex(int valency, HalfEdge *h3, Vert *newVert);
 
     friend class Face;
+    friend class Butterfly;
+    const double PI = 3.1415926535;
 public:
+    Mesh() {};
     Mesh(const char *fileName);
     Edge *findEdge(Vert *s, Vert *t);
 
@@ -83,6 +94,8 @@ public:
     std::vector<HalfEdge*> getHalfEdges() const {return halfEdges;}
     std::vector<Edge*> getEdges() const {return edges;}
     std::vector<Face*> getFaces() const {return faces;}
+
+    void butterfly(bool debug = false, float w = 0);
 
     ~Mesh();
 };
