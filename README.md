@@ -15,3 +15,4 @@ c2. Drawing Polygon            | Polygon Rotating and Scaling
 c3. Animation                  | Animation with a 有点方的 character 
 c4. Shape Generation Algorithm | Mid-point and scanline algorithm 
 c5. Solar System               | Solar system emulation with moon
+C6. OBJ Viewer                 | Read and Render OBJ & **Butterfly** Subdivision
