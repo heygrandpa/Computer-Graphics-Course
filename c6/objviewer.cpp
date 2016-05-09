@@ -250,7 +250,7 @@ private:
 
 public:
     ObjViewerApp() : window(NULL) {
-        mesh = new Mesh("resources/tetra.obj");
+        mesh = new Mesh("resources/bunny.obj");
     }
 
     void run() {

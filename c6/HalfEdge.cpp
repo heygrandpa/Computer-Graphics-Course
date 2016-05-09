@@ -289,29 +289,29 @@ Vert* Mesh::subdivideEdge(Edge *e, float w) {
             if (HalfEdge *t1 = he->next->twin)
                 c1 = t1->next->target;
             else
-                c1 = he2->prev->twin->prev->twin->prev->twin->prev->source;
+                goto here;
             if (HalfEdge *t1 = he2->next->twin)
                 c2 = t1->next->target;
             else
-                c2 = he->prev->twin->prev->twin->prev->twin->prev->source;
+                goto here;
             if (HalfEdge *t1 = he->prev->twin)
                 c3 = t1->next->target;
             else
-                c3 = he2->next->twin->next->twin->next->twin->next->target;
+                goto here;
             if (HalfEdge *t1 = he2->prev->twin)
                 c4 = t1->next->target;
             else
-                c4 = he->next->twin->next->twin->next->twin->next->target;
+                goto here;
 
             if (he->next->twin && he->next->twin->next->twin) {
                 d1 = he->next->twin->next->twin->next->target;
             } else {
-                d1 = he2->prev->twin->prev->twin->prev->source;
+                goto here;
             }
             if (he2->next->twin && he2->next->twin->next->twin) {
                 d2 = he2->next->twin->next->twin->next->target;
             } else {
-                d2 = he->prev->twin->prev->twin->prev->source;
+                goto here;
             }
 #define butterfly_trans1(x)  newVert->x = fa * (s->x + t->x) + \
                              fb * (b1->x + b2->x) + \
@@ -340,6 +340,7 @@ Vert* Mesh::subdivideEdge(Edge *e, float w) {
     } else {
         // boundary edge
     }
+here:
     vertices.push_back(newVert);
     edgeDivide[e] = newVert;
     return newVert;
