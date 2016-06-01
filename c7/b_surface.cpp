@@ -21,7 +21,7 @@ struct Vertex {
 class ObjViewerApp {
 
 private:
-    const float d = .3f;
+    const float d = .2f;
     const int dir[8][2][2] = {
             {{0,  1},  {1,  1}},
             {{1,  1},  {1,  0}},
@@ -201,10 +201,10 @@ private:
             for (int j = 0; j < bezierRows[i].size() - 1; ++j) {
                 bezierVertices.push_back(bezierRows[i][j]);
                 bezierVertices.push_back(norms[std::make_pair(i, j)]);
-                bezierVertices.push_back(bezierRows[i][j + 1]);
-                bezierVertices.push_back(norms[std::make_pair(i, j + 1)]);
                 bezierVertices.push_back(bezierRows[i + 1][j]);
                 bezierVertices.push_back(norms[std::make_pair(i + 1, j)]);
+                bezierVertices.push_back(bezierRows[i][j + 1]);
+                bezierVertices.push_back(norms[std::make_pair(i, j + 1)]);
                 bezierVertices.push_back(bezierRows[i + 1][j]);
                 bezierVertices.push_back(norms[std::make_pair(i + 1, j)]);
                 bezierVertices.push_back(bezierRows[i][j + 1]);
@@ -305,7 +305,7 @@ private:
 
         glUseProgram(shaderProgram);
 
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
         // Matrix
         glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
