@@ -187,7 +187,6 @@ private:
 
     void draw() {
         // Model Matrix
-        GLint modelLoc = glGetUniformLocation(shaderProgram, "model");
         glm::mat4 model(1.0f);
         static float r = 0;
         if (keyD)

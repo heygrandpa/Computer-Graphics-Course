@@ -93,3 +93,16 @@ add_executable(c6 ${SOURCE_FILES_C6})
 add_dependencies(c6 COPY_GLSL) # GLSL needed
 add_dependencies(c6 COPY_RESOURCES) # GLSL needed
 
+# c7
+set(SOURCE_FILES_C7
+        c7/bspline.cpp
+        ${SHADER_HELPER_SOURCES})
+add_executable(c7 ${SOURCE_FILES_C7})
+add_dependencies(c7 COPY_GLSL) # GLSL needed
+
+# c7.surface
+set(SOURCE_FILES_C7.2
+        c7/b_surface.cpp
+        ${SHADER_HELPER_SOURCES})
+add_executable(c7.surface ${SOURCE_FILES_C7.2})
+add_dependencies(c7.surface COPY_GLSL) # GLSL needed
