@@ -17,3 +17,4 @@ c4. Shape Generation Algorithm | Mid-point and scanline algorithm
 c5. Solar System               | Solar system emulation with moon
 c6. OBJ Viewer                 | Read and Render OBJ & **Butterfly** Subdivision
 c7. B Spline Curve & Surface   | Drawing B Spline Curve and Surface
+c8. Ray Tracer                 | Ray Tracer based on toy tracer from UCI
