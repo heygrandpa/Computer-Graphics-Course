@@ -106,3 +106,31 @@ set(SOURCE_FILES_C7.2
         ${SHADER_HELPER_SOURCES})
 add_executable(c7.surface ${SOURCE_FILES_C7.2})
 add_dependencies(c7.surface COPY_GLSL) # GLSL needed
+
+# c8
+set(SOURCE_FILES_C8
+        c8/main.cpp
+        c8/aabb.cpp
+        c8/abvh.cpp
+        c8/basic_builder.cpp
+        c8/basic_envmap.cpp
+        c8/basic_rasterizer.cpp
+        c8/basic_shader.cpp
+        c8/block.cpp
+        c8/cone.cpp
+        c8/cylinder.cpp
+        c8/list.cpp
+        c8/params.cpp
+        c8/plugins.cpp
+        c8/point.cpp
+        c8/ppm_image.cpp
+        c8/quad.cpp
+        c8/quartic.cpp
+        c8/scene.cpp
+        c8/sphere.cpp
+        c8/torus.cpp
+        c8/transform.cpp
+        c8/triangle.cpp
+        c8/util.cpp)
+add_executable(c8 ${SOURCE_FILES_C8})
+add_dependencies(c8 COPY_RESOURCES) # GLSL needed
